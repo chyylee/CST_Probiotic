@@ -95,6 +95,5 @@ ws_list = strcat(output_fdr_nm,'F3_',{'Traditional_LactinVPlacebo.mat',...
     'Bad_LactinVPlacebo.mat'});
 
 plot_LactinVSimulationvsObserved(output_fdr_nm,ws_list)
-%%
 
 
