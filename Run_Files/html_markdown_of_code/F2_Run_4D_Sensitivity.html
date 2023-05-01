@@ -1,0 +1,1057 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2022b"><title>F2_Run_4D_Sensitivity.m</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S3 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S5 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S7 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S8 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S9 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S10 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2019 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: rgb(255,100,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: rgb(230,0,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {    min-height: 18px;    box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper  .matrixElement,.rtcDataTipElement .matrixElement {    position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {    white-space: pre;    display: inline-block;    vertical-align: top;    overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {    display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {    padding-top: 0 !important;    max-height: 100px;}
+.inlineElement .matrixElement {    max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {    overflow: hidden;    padding-left: 9px;}
+.rightPaneElement .matrixElement {    margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {    white-space: nowrap;    margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {    display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {    display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {    margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {    cursor: default !important;}
+.embeddedOutputsVariableElement {    white-space: pre-wrap;    word-wrap: break-word;    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.variableElement {}
+.embeddedOutputsVariableElement.inlineElement {}
+.inlineElement .variableElement {}
+.embeddedOutputsVariableElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .variableElement {    padding-top: 2px;    padding-left: 9px;}
+.outputsOnRight .embeddedOutputsVariableElement.rightPaneElement .eoOutputContent {    /* Remove extra space allocated for navigation border */    margin-top: 0;    margin-bottom: 0;}
+.variableNameElement {    margin-bottom: 3px;    display: inline-block;}
+/* * Ellipses as base64 for HTML export. */.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {    display: inline-block;    margin-top: 3px;    /* base64 encoded version of images-liveeditor/HEllipsis.png */    width: 30px;    height: 12px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {    margin-left: 35px;    /* base64 encoded version of images-liveeditor/VEllipsis.png */    width: 12px;    height: 30px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}
+.S11 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>F2_Run_4D_Sensitivity.m</span></h1><div  class = 'S1'><span style=' font-weight: bold;'>Goal</span><span>: Generate 1D sensitivity analysis on probiotic parameters starting with the "null" probiotic. The "null" probiotic is defined as having a moderate growth rate (0.5) and all interspecies interaction terms as zero.</span></div><div  class = 'S1'><span style=' font-weight: bold;'>Requirements:</span><span> </span></div><div  class = 'S1'><span>MATLAB Toolboxes: Parallel Computing, Bioinformatics, Symbolic Math</span></div><div  class = 'S1'><span>Custom Scripts: Add the </span><span style=' font-family: monospace;'>probiotic_code/</span><span> folder to your path</span></div><div  class = 'S1'><span>Model inputs as defined in </span><span style=' font-family: monospace;'>define_Common_Simulation_Inputs </span><span>(</span><span style=' font-style: italic;'>Defines virtual patient population, simulation inputs)</span></div><div  class = 'S1'><span style=' font-style: italic;'>Functions:</span><span style=' font-family: monospace;'> simulate_CST_probiotic_object.m, plot_4D_SensitivityAnalysis.m</span></div><h2  class = 'S2'><span>1.LOAD MODEL DEFAULTS</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span >clear; clc;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >output_fdr = </span><span style="color: rgb(167, 9, 245);">'result_workspaces/'</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >ws_name = </span><span style="color: rgb(167, 9, 245);">'input_files/SSConfig-Analysis-HMP-Virtual-Population.mat'</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >simulationType = </span><span style="color: rgb(167, 9, 245);">"base"</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >[POPinfo,PROBinfo,~,SIMinfo] = define_Common_Simulation_Inputs(ws_name,simulationType);</span></span></div></div><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >[param_names,~,sp_cols,~] = get_naming_terms();</span></span></div></div></div><div  class = 'S6'><span style=' font-family: monospace;'>POPinfo</span><span>: struct that defines virtual patient population</span></div><ul  class = 'S7'><li  class = 'S8'><span style=' font-family: monospace;'>virtualPatientParameter</span><span>s: # patients x 20 parameter matrix generated by LHS</span></li><li  class = 'S8'><span style=' font-family: monospace;'>virtualPatientComposition</span><span>: 1 x # patients cell of analytically predicted steady-state absolute abundances of nAB, Li, oLB (predicted without considering probiotic in community)</span></li></ul><div  class = 'S1'><span style=' font-family: monospace;'>PROBinfo</span><span>: struct that defines probiotic parameters</span></div><ul  class = 'S7'><li  class = 'S8'><span>dose: absolute abundance of probiotic when dosed into the base community (selected from relative abundance data observed in Dausset et al. 2018)</span></li><li  class = 'S8'><span>numberDoses: total number of doses given</span></li><li  class = 'S8'><span>doseFrequency: time separation (days) between each dose</span></li></ul><div  class = 'S1'><span style=' font-family: monospace;'>SIMinfo</span><span>: struct that defines simulation inputs</span></div><ul  class = 'S7'><li  class = 'S8'><span style=' font-family: monospace;'>startProbiotic</span><span>: time point after simulation begins to start probiotic therapy</span></li><li  class = 'S8'><span style=' font-family: monospace;'>stopSimulation</span><span>: time point to end simulation relative to the last day of probiotic treatment</span></li><li  class = 'S8'><span style=' font-family: monospace;'> initialComposition</span><span>: scaling factor to "displace" from the predicted composition (POPinfo.virtualPatientComposition). For example, 0.01 is a 1% decrease in abundance and 0.05 is a 0.5% increase from the predicted abundance</span></li><li  class = 'S8'><span style=' font-family: monospace;'>alteredParamIndex</span><span>: indexes of probiotic-related parameters relative to the full parameter list</span></li><li  class = 'S8'><span style=' font-family: monospace;'>paramAlteration</span><span>: new value for probiotic parameters (a 1 x length alteredParamIndex array of values)</span></li><li  class = 'S8'><span style=' font-family: monospace;'>paramAlterationType</span><span>: 'None' (use LHS probiotic parameter, ignore paramAlteration values), 'fold addition' (scale LHS probiotic parameter (LP) + paramAlteration * LP,  'absolute' (set to exact value in paramAlteration)</span></li><li  class = 'S8'><span style=' font-family: monospace;'>ODEoptions</span><span>: "options" input for ode solvers</span></li><li  class = 'S8'><span style=' font-family: monospace;'>ODEsolver:</span><span> ODE solver function handle (e.g., @ode45, @ode15s)</span></li></ul><h2  class = 'S2'><span>2. RUN 4D SENSITIVITY ANALYSIS</span></h2><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% DEFINE THE 4 PARAMETERS TO ALTER</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >base_params = [0.5 0 0 0 0 0 0 -0.022]; </span><span style="color: rgb(0, 128, 19);">% base parameter set</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >pmags1 = [-0.01 0 0.01]; </span><span style="color: rgb(0, 128, 19);">% magnitudues for the parameter alteration</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >pidx = [8 17 18 19]; </span><span style="color: rgb(0, 128, 19);">% indexes of parameter combinations</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >output_ws_nm = </span><span style="color: rgb(167, 9, 245);">'F2_4D_Sensitivity.mat'</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >vectorCell = {[pmags1],[pmags1],[pmags1],[pmags1]};</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >[newValueMat] = generate_input_combos(vectorCell);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >fullparamChange = zeros(size(newValueMat,1),length(base_params));</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >fullparamChange(:,1) = base_params(1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >fullparamChange(:,end) = base_params(end);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >fullparamChange(:,[2,5,6,7]) = newValueMat;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% RUN ALL COMBINATIONS OF ALTERATION</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >numVirtualPatients = length(POPinfo.virtualPatientComposition);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >all_select_outcomes = NaN(size(newValueMat,1),numVirtualPatients,8,5);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >all_warnall = NaN(size(newValueMat,1),numVirtualPatients);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >c = 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >pert_id = 1:size(newValueMat,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    SIMinfo.paramAlteration = fullparamChange(pert_id,:);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    [select_outcomes,~,~,~,warnall,~] = simulate_CST_probiotic_object(POPinfo,PROBinfo,SIMinfo);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    all_select_outcomes(pert_id,:,:,:) = select_outcomes;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    all_warnall(pert_id,:) = warnall == </span><span style="color: rgb(167, 9, 245);">""</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    </span><span style="color: rgb(0, 128, 19);">% Pause simulations for 1 minute, every 10 iterations</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    c = c + 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">if </span><span >c == 10</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >        save(strcat(output_fdr,output_ws_nm),</span><span style="color: rgb(167, 9, 245);">'all_select_outcomes'</span><span >,</span><span style="color: rgb(167, 9, 245);">'all_warnall'</span><span >,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            </span><span style="color: rgb(167, 9, 245);">'POPinfo'</span><span >,</span><span style="color: rgb(167, 9, 245);">'PROBinfo'</span><span >,</span><span style="color: rgb(167, 9, 245);">'SIMinfo'</span><span >,</span><span style="color: rgb(167, 9, 245);">'base_params'</span><span >,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            </span><span style="color: rgb(167, 9, 245);">"all_warnall"</span><span >, </span><span style="color: rgb(167, 9, 245);">'pert_id'</span><span >,</span><span style="color: rgb(167, 9, 245);">'newValueMat'</span><span >,</span><span style="color: rgb(167, 9, 245);">'pidx'</span><span >)</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >        c = 1; pause(60);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div><div  class = 'S10'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="543DBD1E" data-scroll-top="null" data-scroll-left="null" prevent-scroll="true" data-testid="output_0" style="width: 1074px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" data-width="1044" data-height="11951" data-hashorizontaloverflow="true" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Warning: Failure at t=2.556497e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.588546e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.224347e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.884295e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.008709e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.323999e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.233107e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.254645e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.962023e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.994964e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.813626e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.736214e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.952930e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.055024e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 653)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.273061e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.391047e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.097120e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.461761e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.755909e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.788795e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.169488e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.580024e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.895752e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.200000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.300000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.116755e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.728485e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.201496e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.881250e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.667265e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.978143e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.564995e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.354322e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.895362e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400330e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.104809e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.473069e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.217291e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.262379e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.908882e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=9.166769e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.093017e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.241589e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.057663e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.704738e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.180069e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.729612e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.700833e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.199474e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.402156e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.399998e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.329255e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 653)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.488604e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.112782e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.047445e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.083918e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.649296e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.100000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.200000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.300000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.446831e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.274525e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.274292e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.006800e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.913979e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.454616e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.083741e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=9.333558e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.104579e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.941787e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.932219e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.655847e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.609291e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.797911e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.111051e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.491842e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.576244e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.116426e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.019678e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.254093e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.254140e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.906120e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.306504e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.997908e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.148767e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.475015e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.812527e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.105901e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.001516e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.671074e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.999422e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.193461e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.208518e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.832741e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.971841e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.002485e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.446367e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.722865e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.257353e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.419481e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.020519e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 653)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.903192e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.436343e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.324422e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.162658e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.556897e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.479486e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.327793e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.120818e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.461734e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.115326e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.696694e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.144809e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.439393e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.075745e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.047796e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.353742e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=8.419281e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.189350e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.685792e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.931859e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.859555e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.362300e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 653)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.058868e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.026639e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.724104e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.903661e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.495529e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.380271e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.165689e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.200000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.300000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.124144e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.606287e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.519530e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.645726e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.592207e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.907114e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.641582e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.729012e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.255824e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.451856e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.427406e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.743898e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.487939e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.424593e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.361091e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.188059e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.536587e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.697260e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.200271e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.153600e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.789601e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.375166e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.948948e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.727922e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.676687e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.569819e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=6.037665e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 653)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.003831e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.132060e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.076582e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.721822e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.294507e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.958615e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.262559e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (9.094947e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.631081e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.640706e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.422197e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=7.635484e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.076793e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.100000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.200000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.300000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.963635e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.139202e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.400806e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.038640e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.818144e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.372762e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.415994e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (4.547474e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.549122e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.773468e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.401530e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.368968e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.809305e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.346410e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.491473e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.868129e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=3.763066e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.389031e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=5.971996e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.400000e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.605404e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.341506e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=2.934332e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (5.684342e-14) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=1.076709e+02.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (2.273737e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warning: Failure at t=4.059517e+01.  Unable to meet integration tolerances without reducing the step size below the smallest value allowed (1.136868e-13) at time t.
+&gt; In ode15s (line 715)
+  In parallel_function&gt;make_general_channel/channel_general (line 832)
+  In remoteParallelFunction (line 67)
+Warnin...</div></div></div></div></div><div  class = 'S6'><span>Outputs saved include:</span></div><ul  class = 'S7'><li  class = 'S8'><span style=' font-family: monospace;'>all_select_outcomes</span><span>: 4D array [# perturbations x # subjects x # evaluations points x # model speices + 1]. In this example it would be an 81 x 2000 x 8 x 5 double. There were 81 parameter combinations (perturbations) in this simulation (3 values)^(4 parameters altered) = 81. Default number of evaluation points is 8 (time points where abundance measurement is collected, the last dimension is the time point and the species abundance. </span></li><li  class = 'S8'><span style=' font-family: monospace;'>all_warnall</span><span>: 2D array [# perturbations x # subjects], index of 1 means no ODE solver warning, index of 0 indicates there was a integration warning</span></li><li  class = 'S8'><span style=' font-family: monospace;'>base_params</span><span>: parameter set the 1D analysis was centered around</span></li><li  class = 'S8'><span style=' font-family: monospace;'>pidx</span><span>: array for the parameters indexes that were altered (8: nAB -&gt;P; 17: P-&gt;nAB; 18: P-&gt;Li; 19: P-&gt;oLB)</span></li><li  class = 'S8'><span style=' font-family: monospace;'>newValueMat</span><span>: 2D matrix [# perturbations x # parameters altered] of the combinations of the parameters altered</span></li></ul><h2  class = 'S2'><span>3. PLOT RESULTS</span></h2><div  class = 'S1'><span>The top plot indicates the  parameter combination values. "B&gt;" indicates the baseline, null probiotic.</span></div><ul  class = 'S7'><li  class = 'S8'><span>White: no change</span></li><li  class = 'S8'><span>Pink: positive change (+0.01)</span></li><li  class = 'S8'><span>Green: negative change (-0.01)</span></li></ul><div  class = 'S1'><span>The bottom plot indicates the response frequency distribution for each combination. The red line indicates the distribution for the baseline, null probiotic strain. Astericks indicate significant difference from baseline efficacy (nAB dominance frequency).</span></div><ul  class = 'S7'><li  class = 'S8'><span>Orange: nAB dominanted (treatment failure)</span></li><li  class = 'S8'><span>Gray: Li dominated (treatment success)</span></li><li  class = 'S8'><span>Blue: oLB dominated (treatment success)</span></li><li  class = 'S8'><span>Purple: Probiotic dominated (treatment success)</span></li></ul><div  class = 'S1'><span>The </span><span style=' font-family: monospace;'>plot_4D_SensitivityAnalysis</span><span> function also outputs model resuts at a given time point (default is 12 mo).</span></div><ul  class = 'S7'><li  class = 'S8'><span style=' font-family: monospace;'>allCounts</span><span>: 81 x 4 double [Rows: combinations of parameters, Columns: response type, nAB dominated, Li dominated, oLB dominated, Probiotic dominated for the 2000 subjects, with subjects where there was a integration error removed]</span></li><li  class = 'S8'><span style=' font-family: monospace;'>pChiDfAllResponses</span><span>: 81 x 3 double [Rows: combinations of parameters, Colums: P-vaue, Chi-square statistic, degrees of freedom] for a chi-square test comparing all four response types</span></li><li  class = 'S8'><span style=' font-family: monospace;'>pChiDfBVResponses</span><span>: 81 x 3 double [Rows: combinations of parameters, Colums: P-vaue, Chi-square statistic, degrees of freedom] for a chi-square test comparing BV+ (nAB dominant) vs BV- negative (Li, oLB or Probiotic dominated responses)</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span >output_fdr = </span><span style="color: rgb(167, 9, 245);">'result_workspaces/F2/'</span><span >; </span><span style="color: rgb(0, 128, 19);">% update as needed for location of your output files</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >load(strcat(output_fdr,</span><span style="color: rgb(167, 9, 245);">'F2_4D_Sensitivity.mat'</span><span >))</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >time_id = 8; </span><span style="color: rgb(0, 128, 19);">% evaluate at 12 mo</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >[allCounts,pChiDfAllResponses, pChiDfBvResponses] = </span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    plot_4D_SensitivityAnalysis(all_select_outcomes,all_warnall,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre"><span >    newValueMat,pidx,time_id,param_names,sp_cols)</span></span></div><div  class = 'S10'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="C9BF6DF7" data-scroll-top="null" data-scroll-left="null" prevent-scroll="true" data-testid="output_1" data-width="1044" style="width: 1074px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1044px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">allCounts = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">81×4</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:87,&quot;totalColumns&quot;:4,&quot;totalRows&quot;:81,&quot;charsPerColumn&quot;:12}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 350px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">        1167          67          43         704
+        1135          80          83         669
+        1117          93         149         588
+        1197         128          45         610
+        1163         143          81         575
+        1145         158         132         512
+        1217         210          44         499
+        1187         216          78         476
+        1165         235         122         421
+        1417          43          37         503
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="01F629AB" data-scroll-top="null" data-scroll-left="null" prevent-scroll="true" data-testid="output_2" data-width="1044" style="width: 1074px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1044px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">pChiDfAllResponses = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">81×3</span></div></div><div class="veScalingFactor" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">10<sup>3</sup><span class="multiply" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> ×</span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:3,&quot;totalRows&quot;:81,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 221px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    0.0000    0.0681    0.0030
+         0    0.0920    0.0030
+         0    0.1785    0.0030
+         0    0.1364    0.0030
+         0    0.1706    0.0030
+         0    0.2525    0.0030
+         0    0.2665    0.0030
+         0    0.2942    0.0030
+         0    0.3819    0.0030
+         0    0.2508    0.0030
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="5D683538" data-scroll-top="null" data-scroll-left="null" prevent-scroll="true" data-testid="output_3" data-width="1044" style="width: 1074px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1044px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">pChiDfBvResponses = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">81×3</span></div></div><div class="veScalingFactor" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">10<sup>3</sup><span class="multiply" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> ×</span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:3,&quot;totalRows&quot;:81,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 221px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    0.0000    0.0610    0.0010
+    0.0000    0.0494    0.0010
+    0.0000    0.0463    0.0010
+         0    0.0773    0.0010
+    0.0000    0.0644    0.0010
+    0.0000    0.0595    0.0010
+         0    0.0927    0.0010
+         0    0.0791    0.0010
+         0    0.0712    0.0010
+         0    0.2435    0.0010
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S11'><span style="white-space: pre"><span >ylim([0,100])</span></span></div><div  class = 'S10'><img src="data:image/png;base64,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9uWXX/bv358zEwe7DRs2LFy4kDF2/vz5iIiIAQMGnDlzxh3svFjwmIodN24cB7u//e1vI0aMmDJlyp/+9KegoKDvv/++d+/egwYNOnbsmHvTtMCOMRYcHNy1a9eLFy8WFhYmJCS4dkLU19fHxMR8+eWXly5d+td//dcXX3xx3759PK34xhtv/O53vysqKurZs6cL7LKyslJTU7Ozs+fPn88Y++STT2JiYjzArry8/J577mGMTZs27Y9//GNdXV337t3hhFAACkABgB18AApAAcMVaL4rNiIiIikpae3atRz1goKC3NNOwcHBISEhPIvG/8XGxh49erSxsXHu3LmbNm26fv16p06d+J/GjBnz6aef1tfXl5SUuDJ2Xiy0b9/efY2dC+w2bty4YMGCHTt2uOZMy8rKrly5cu+997Ye7Pr163fy5Ek+y/z73/9+1KhR/Lfr16/ftGnTyZMnP/vssyeffLJ///7PP//8hAkTBg8ezG9wz9hxVrt27Vq3bt34XydMmHD69GlXxu6xxx7buXMn/9PLL7+8fPnysrKyIUOGGN6RKAAKQAHTKwCwM30XoYJQQH4FWlxj596soKCgp59+ms+xfvvtt7169XLtWuW38UnSb775ZtmyZTt37qytrXX9fMGCBRs3bqyurj579iwHuwceeMCLhZ49e7YIdr/+9a/XrVvnShNqqa6VsaupqenTp8+8efM2btw4efJkvk/W49/Bgwfvu+++NWvWZGVlORwOxlhERMTSpUtTU1PdwW7kyJHV1dUXL150/Tw5OfngwYMusJs/f352drYLGRcvXlxaWhodHS2/p6AFUAAKtFUBgF1bFcTvoQAUuK0CusCuoaGha9eu9913X3Fxscvy0KFDT58+fevWrTlz5mzatMk9mzV27NgjR47cuHHjo48+4mD3yCOPeLEQ9D//XODoytitXLkyIyNjz549rtNSzpw5c/Xq1ZEjR7o3UAvsNmzYsGjRos2bNz/11FMcQ/fv38+PynP9Cw8P5yvkGhsbjx07tn///uzsbIfDsWfPnvHjx7umYu+///4DBw64t9GFepz/XFs0eC4QYHdbD8QNUCBwFADYBU5fo6VQwG8K6AI7xtg999xTUVFRW1vLvzDBc3gc9fgauw8++CAxMZExdu3ate7du/P9B+5r7LxY0Fpjt2vXrp///Of//M//vHbtWsZYXV3dXXfdNXTo0JKSktuC3f79+x999FHG2BdffHHXXXfx6dE33ngjJSWF/3bRokXvv/9+aWnpCy+88Mknn/z1r3/lywrz8/OTkpI2bNgwZ84cF9jxHKRrHd5//Md/DB482H2NHcDOb66MgqGA6RUA2Jm+i1BBKCC/AnrBjh8dMmXKlOXLl9+8eTMjI+PAgQP8YBQOdhaLZf369REREevXry8sLNy1a9ejjz7qDnZeLDDG7rzzzk6dOmVnZ0+ePNlqtfLNE06nc9CgQRUVFXxbbnZ2dmFh4euvvz537tzmYBcWFjZ79myeeysvL3///fcZY4cPHx47diwnUZ6re/7552NjY996661t27Y9/vjjW7du5ST34osvzpw587vvvluxYsW+ffuOHDkycuRIF9jxLb0Wi2Xp0qU9evRYt25dRUUFwE7+cYAWQAERCgDsRKiMMqBAgCswc+bMbdu21dTU3HnnnS1KERQUNHv27DfffJP/9ebNm2vWrElPT3fd/Oabb3KQstls+fn5Dz744NatW/lf161b99xzz3l8UsyLBcbY2rVr09LSeMLvoYcecn1SrLy8fOrUqZ9//jljbMCAAU899dSyZcvcD0zmdfM4FXnAgAEJCQlTp07lVMf/ffLJJ7/4xS8qKir4/86bN++ll14KCQlxOp1Tp07lJ5jwfy+99NLy5cs9Pim2d+/e1NTUs2fPMsaeeOKJmpqac+fOnTlzht+2bAvfxAAAAn1JREFUaNGiV199lf/81VdfffbZZ0+dOjV06NAAdzM0HwpAAXx5Aj4ABaCAeRX47rvvTp8+3a1bt0GDBnXt2tWjot99953dbh8yZIhr62jzlnixUFdXd+PGjZ49ezb/VVVVVUNDQys/IOFFvsbGxjNnznzzzTeRkZF33XWX+53l5eXnzp3r0qXLgAEDfvSjH3kYqa2tvXr16p133nnt2rU77rijffv2I0eOHDRo0Lvvvmve3kLNoAAUMIcCyNiZox9QCygABaDA/1WA78PIycmx2WxBQUF88V9mZubzzz8PkaAAFIAC3hUA2MFDoAAUgALmUuDixYujRo2qrq4OCwvr3r17RUVFfHx8fn6+l9ykuRqA2kABKOA/BQB2/tMeJUMBKAAFoAAUgAJQgFQBgB2pnDAGBaAAFIACUAAKQAH/KQCw85/2KBkKQAEoAAWgABSAAqQKAOxI5YQxKAAFoAAUgAJQAAr4TwGAnf+0R8lQAApAASgABaAAFCBVAGBHKieMQQEoAAWgABSAAlDAfwoA7PynPUqGAlAACkABKAAFoACpAgA7UjlhDApAASgABaAAFIAC/lMAYOc/7VEyFIACUAAKQAEoAAVIFQDYkcoJY1AACkABKAAFoAAU8J8CADv/aY+SoQAUgAJQAApAAShAqgDAjlROGIMCUAAKQAEoAAWggP8UANj5T3uUDAWgABSAAlAACkABUgUAdqRywhgUgAJQAApAASgABfynAMDOf9qjZCgABaAAFIACUAAKkCoAsCOVE8agABSAAlAACkABKOA/BQB2/tMeJUMBKAAFoAAUgAJQgFQBgB2pnDAGBaAAFIACUAAKQAH/KfDfa97PJ5ERt1oAAAAASUVORK5CYII=" style="height: auto;"></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% F2_Run_4D_Sensitivity.m
+% *Goal*: Generate 1D sensitivity analysis on probiotic parameters starting 
+% with the "null" probiotic. The "null" probiotic is defined as having a moderate 
+% growth rate (0.5) and all interspecies interaction terms as zero.
+% 
+% *Requirements:* 
+% 
+% MATLAB Toolboxes: Parallel Computing, Bioinformatics, Symbolic Math
+% 
+% Custom Scripts: Add the |probiotic_code/| folder to your path
+% 
+% Model inputs as defined in |define_Common_Simulation_Inputs| (_Defines virtual 
+% patient population, simulation inputs)_
+% 
+% _Functions:_ |simulate_CST_probiotic_object.m, plot_4D_SensitivityAnalysis.m|
+%% 1.LOAD MODEL DEFAULTS
+
+clear; clc;
+output_fdr = 'result_workspaces/';
+ws_name = 'input_files/SSConfig-Analysis-HMP-Virtual-Population.mat';
+simulationType = "base";
+[POPinfo,PROBinfo,~,SIMinfo] = define_Common_Simulation_Inputs(ws_name,simulationType);
+[param_names,~,sp_cols,~] = get_naming_terms();
+%% 
+% |POPinfo|: struct that defines virtual patient population
+%% 
+% * |virtualPatientParameter|s: # patients x 20 parameter matrix generated by 
+% LHS
+% * |virtualPatientComposition|: 1 x # patients cell of analytically predicted 
+% steady-state absolute abundances of nAB, Li, oLB (predicted without considering 
+% probiotic in community)
+%% 
+% |PROBinfo|: struct that defines probiotic parameters
+%% 
+% * dose: absolute abundance of probiotic when dosed into the base community 
+% (selected from relative abundance data observed in Dausset et al. 2018)
+% * numberDoses: total number of doses given
+% * doseFrequency: time separation (days) between each dose
+%% 
+% |SIMinfo|: struct that defines simulation inputs
+%% 
+% * |startProbiotic|: time point after simulation begins to start probiotic 
+% therapy
+% * |stopSimulation|: time point to end simulation relative to the last day 
+% of probiotic treatment
+% * |initialComposition|: scaling factor to "displace" from the predicted composition 
+% (POPinfo.virtualPatientComposition). For example, 0.01 is a 1% decrease in abundance 
+% and 0.05 is a 0.5% increase from the predicted abundance
+% * |alteredParamIndex|: indexes of probiotic-related parameters relative to 
+% the full parameter list
+% * |paramAlteration|: new value for probiotic parameters (a 1 x length alteredParamIndex 
+% array of values)
+% * |paramAlterationType|: 'None' (use LHS probiotic parameter, ignore paramAlteration 
+% values), 'fold addition' (scale LHS probiotic parameter (LP) + paramAlteration 
+% * LP,  'absolute' (set to exact value in paramAlteration)
+% * |ODEoptions|: "options" input for ode solvers
+% * |ODEsolver:| ODE solver function handle (e.g., @ode45, @ode15s)
+%% 2. RUN 4D SENSITIVITY ANALYSIS
+
+% DEFINE THE 4 PARAMETERS TO ALTER
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+base_params = [0.5 0 0 0 0 0 0 -0.022]; % base parameter set
+pmags1 = [-0.01 0 0.01]; % magnitudues for the parameter alteration
+pidx = [8 17 18 19]; % indexes of parameter combinations
+output_ws_nm = 'F2_4D_Sensitivity.mat';
+
+vectorCell = {[pmags1],[pmags1],[pmags1],[pmags1]};
+[newValueMat] = generate_input_combos(vectorCell);
+fullparamChange = zeros(size(newValueMat,1),length(base_params));
+fullparamChange(:,1) = base_params(1);
+fullparamChange(:,end) = base_params(end);
+fullparamChange(:,[2,5,6,7]) = newValueMat;
+
+% RUN ALL COMBINATIONS OF ALTERATION
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+numVirtualPatients = length(POPinfo.virtualPatientComposition);
+all_select_outcomes = NaN(size(newValueMat,1),numVirtualPatients,8,5);
+all_warnall = NaN(size(newValueMat,1),numVirtualPatients);
+c = 1;
+for pert_id = 1:size(newValueMat,1)
+    SIMinfo.paramAlteration = fullparamChange(pert_id,:);
+    [select_outcomes,~,~,~,warnall,~] = simulate_CST_probiotic_object(POPinfo,PROBinfo,SIMinfo);
+    all_select_outcomes(pert_id,:,:,:) = select_outcomes;
+    all_warnall(pert_id,:) = warnall == "";
+
+
+    % Pause simulations for 1 minute, every 10 iterations
+    c = c + 1;
+    if c == 10
+        save(strcat(output_fdr,output_ws_nm),'all_select_outcomes','all_warnall',...
+            'POPinfo','PROBinfo','SIMinfo','base_params',...
+            "all_warnall", 'pert_id','newValueMat','pidx')
+        c = 1; pause(60);
+    end
+end
+%% 
+% Outputs saved include:
+%% 
+% * |all_select_outcomes|: 4D array [# perturbations x # subjects x # evaluations 
+% points x # model speices + 1]. In this example it would be an 81 x 2000 x 8 
+% x 5 double. There were 81 parameter combinations (perturbations) in this simulation 
+% (3 values)^(4 parameters altered) = 81. Default number of evaluation points 
+% is 8 (time points where abundance measurement is collected, the last dimension 
+% is the time point and the species abundance. 
+% * |all_warnall|: 2D array [# perturbations x # subjects], index of 1 means 
+% no ODE solver warning, index of 0 indicates there was a integration warning
+% * |base_params|: parameter set the 1D analysis was centered around
+% * |pidx|: array for the parameters indexes that were altered (8: nAB ->P; 
+% 17: P->nAB; 18: P->Li; 19: P->oLB)
+% * |newValueMat|: 2D matrix [# perturbations x # parameters altered] of the 
+% combinations of the parameters altered
+%% 3. PLOT RESULTS
+% The top plot indicates the  parameter combination values. "B>" indicates the 
+% baseline, null probiotic.
+%% 
+% * White: no change
+% * Pink: positive change (+0.01)
+% * Green: negative change (-0.01)
+%% 
+% The bottom plot indicates the response frequency distribution for each combination. 
+% The red line indicates the distribution for the baseline, null probiotic strain. 
+% Astericks indicate significant difference from baseline efficacy (nAB dominance 
+% frequency).
+%% 
+% * Orange: nAB dominanted (treatment failure)
+% * Gray: Li dominated (treatment success)
+% * Blue: oLB dominated (treatment success)
+% * Purple: Probiotic dominated (treatment success)
+%% 
+% The |plot_4D_SensitivityAnalysis| function also outputs model resuts at a 
+% given time point (default is 12 mo).
+%% 
+% * |allCounts|: 81 x 4 double [Rows: combinations of parameters, Columns: response 
+% type, nAB dominated, Li dominated, oLB dominated, Probiotic dominated for the 
+% 2000 subjects, with subjects where there was a integration error removed]
+% * |pChiDfAllResponses|: 81 x 3 double [Rows: combinations of parameters, Colums: 
+% P-vaue, Chi-square statistic, degrees of freedom] for a chi-square test comparing 
+% all four response types
+% * |pChiDfBVResponses|: 81 x 3 double [Rows: combinations of parameters, Colums: 
+% P-vaue, Chi-square statistic, degrees of freedom] for a chi-square test comparing 
+% BV+ (nAB dominant) vs BV- negative (Li, oLB or Probiotic dominated responses)
+
+output_fdr = 'result_workspaces/F2/'; % update as needed for location of your output files
+
+load(strcat(output_fdr,'F2_4D_Sensitivity.mat'))
+time_id = 8; % evaluate at 12 mo
+
+[allCounts,pChiDfAllResponses, pChiDfBvResponses] = ...
+    plot_4D_SensitivityAnalysis(all_select_outcomes,all_warnall,...
+    newValueMat,pidx,time_id,param_names,sp_cols)
+ylim([0,100])
+##### SOURCE END #####
+-->
+</div></body></html>
