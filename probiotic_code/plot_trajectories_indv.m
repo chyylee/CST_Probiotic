@@ -24,14 +24,11 @@ function plot_trajectories_indv(SSnms, CST_post, warnall, tall, yall, sp_cols, d
         L = length(sidx);
     end
 
-    m = ceil(sqrt(L));
-    n = ceil(L/m);
     for i = 1:L
         ttmp = tall{sidx(i)};
         ytmp = yall{sidx(i)};
 
         figure(i)
-%         subplot(m,n,i)
         plot(ttmp,ytmp./sum(ytmp,2),'linewidth',3)
         hold on
         for k = 1:length(dose_lb)
@@ -46,6 +43,6 @@ function plot_trajectories_indv(SSnms, CST_post, warnall, tall, yall, sp_cols, d
 
         colororder(sp_cols)
     end
-    legend({'NO','Li','oLB','Probiotic','Dose Point'})
+    legend({'nAB','Li','oLB','Probiotic','Dose Point'})
     
 end

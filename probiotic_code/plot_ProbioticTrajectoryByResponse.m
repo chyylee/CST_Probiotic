@@ -1,6 +1,5 @@
 function plot_ProbioticTrajectoryByResponse(resp_id,select_outcomes,warnall,tall,yall,time_id,dose_lbls,SSnms,sp_cols)
     abundance = squeeze(select_outcomes(:,time_id,2:end));
-%     relative_abundance = abundance ./ sum(abundance,2);
     CST_post = get_CST_post(abundance);
     c = 1;
 

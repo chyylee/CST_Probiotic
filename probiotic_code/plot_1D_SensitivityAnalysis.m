@@ -33,7 +33,7 @@ function plot_1D_SensitivityAnalysis(all_select_outcomes,all_warnall,time_id,...
         end 
         colororder(sp_cols)
         xlabel('Parameter Value')
-        ylabel('Frequency')
+        ylabel('Percent Saamples')
         title(param_names(params_to_view(param_id)))
         xtickangle(90)
         set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)

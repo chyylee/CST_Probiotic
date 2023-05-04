@@ -58,7 +58,7 @@ function plot_1D_Global_Probiotic(fdr_nm)
         colororder(sp_cols)
     
         xlabel('Fold Addition')
-        ylabel('Frequency')
+        ylabel('Percent Samples')
         title(param_names(params_to_view(param_id)))
         legend(SSnms)
         ylim([0 1])

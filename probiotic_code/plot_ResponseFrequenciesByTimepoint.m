@@ -1,4 +1,4 @@
-function plot_ResponseFrequenciesByTimepoint(selected_timepoints,select_outcomes,warnall,SSnms,time_names,sp_cols)
+function [timeCounts] = plot_ResponseFrequenciesByTimepoint(selected_timepoints,select_outcomes,warnall,SSnms,time_names,sp_cols)
     timeCounts = NaN(length(selected_timepoints),4);
     timeFrequency = NaN(length(selected_timepoints),4);
     for time_id = 1:length(selected_timepoints)
@@ -18,7 +18,8 @@ function plot_ResponseFrequenciesByTimepoint(selected_timepoints,select_outcomes
     xticklabels(time_names(selected_timepoints))
     legend(SSnms)
     for i = 1:length(selected_timepoints) % Label for percent nAB response post
-        text(i,X(i,1),num2str(X(i,1),'%.1f'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
+        text(i,X(i,1),num2str(X(i,1),'%.1f %%'),'VerticalAlignment','top',...
+            'HorizontalAlignment', 'center','FontSize',8)
     end
     set(gca,'fontsize',10,'XColor','k','YColor','k')
 end

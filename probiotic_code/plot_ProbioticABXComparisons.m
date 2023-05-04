@@ -65,7 +65,7 @@ function [Counts,all_PvaluesLB,all_PvaluesBV] = ...
                 'fontname','Arial','Color','k')
         end
         title(time_names(sel_time(time_id)))
-        ylabel('Frequency')
+        ylabel('Percent Samples')
         set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
         ylim([0 140])
     end

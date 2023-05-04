@@ -38,7 +38,7 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
     text(1.5,max(X(:,1))+15,strcat("P = ",num2str(pPLCBO12,'%.4f')),"HorizontalAlignment","center")
-    xticklabels({'Clinical','Model'}); ylabel('Frequency Response'); 
+    xticklabels({'Clinical','Model'}); ylabel('Percent Samples'); 
     title('12 weeks, Placebo'); ylim([0 100]); xticks(1:2);
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
     
@@ -66,7 +66,7 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
     title('24 weeks, Placebo'); ylim([0 100]); xticklabels({'Clinical','Model'})
-    ylabel('Frequency Response'); xticks(1:2);
+    ylabel('Percent Samples'); xticks(1:2);
     text(1.5,max(X(:,1))+15,strcat("P = ",num2str(pPLCBO12,'%.4f')),"HorizontalAlignment","center")
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
     
@@ -121,7 +121,7 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
     str = 'P_1 = %.4f; P_2 = %.4f; P_3 = %.4f; P_4 = %.4f';
     text(3,110,sprintf(str,PvsC(1,:)),"HorizontalAlignment","center"); xticks(1:n);
     ylim([0 120]); xticklabels(horzcat({'Clinical'},extractBetween(ws_list,'F3_','_')))
-    title('12 weeks, Treatment'); ylabel('Frequency Response')
+    title('12 weeks, Treatment'); ylabel('Percent Samples')
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
     
     % ~~~~~~~~~~~~ 24WKS: COMPARE LV ARM TO STRAINS 24 WKS ~~~~~~~~~~~ 
@@ -140,6 +140,6 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
     str = 'P_1 = %.4f; P_2 = %.4f; P_3 = %.4f; P_4 = %.4f';
     text(3,110,sprintf(str,PvsC(2,:)),"HorizontalAlignment","center"); xticks(1:n);
     ylim([0 120]); xticklabels(horzcat({'Clinical'},extractBetween(ws_list,'F3_','_L')))
-    title('24 weeks, Treatment'); ylabel('Frequency Response')
+    title('24 weeks, Treatment'); ylabel('Percent Samples')
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
 end
