@@ -83,7 +83,7 @@ save(fnm,"select_outcomes","nonBVflag","tall","yall","warnall","dose_lbls",...
 
 %% 3. RUN TRADITIONAL PROBIOTIC MODEL
 
-SIMinfo.paramAlteration = [0.5 0 0 0 -0.012 0 0 -0.0220]; % null + strong inhibition of nAB 324.576967 seconds.
+SIMinfo.paramAlteration = [0.5 0 0 0 -0.01 0 0 -0.0220]; % null + strong inhibition of nAB 324.576967 seconds.
 
 tic
 [select_outcomes,nonBVflag,tall,yall,warnall,...
@@ -96,7 +96,7 @@ save(fnm,"select_outcomes","nonBVflag","tall","yall","warnall","dose_lbls",...
 
 %% 4. RUN NON-TRADITIONAL PROBIOTIC MODEL
 
-SIMinfo.paramAlteration = [0.5 0.012 0 0 0 0 0 -0.0220]; % null + strong inhibition of P 324.576967 seconds.
+SIMinfo.paramAlteration = [0.5 0.01 0 0 0 0 0 -0.0220]; % null + strong inhibition of P 324.576967 seconds.
 
 tic
 [select_outcomes,nonBVflag,tall,yall,warnall,...
@@ -108,9 +108,10 @@ save(fnm,"select_outcomes","nonBVflag","tall","yall","warnall","dose_lbls",...
     "POPinfo","PROBinfo","SIMinfo")
 
 %% 4. PLOT RESULTS
-output_fdr = 'result_workspaces/';
+output_fdr = 'result_workspaces/F1/';
 ws_names = {'F1_Null_Strain.mat', 'F1_Traditional_Strain.mat','F1_NonTraditional_Strain.mat'};
 [~,SSnms,sp_cols,time_names] = get_naming_terms();
+
 
 null = load(strcat(output_fdr,ws_names{1}));
 trad = load(strcat(output_fdr,ws_names{2}));
@@ -120,24 +121,32 @@ f1a(1) = figure;
 time_id = 8; % 12 mo
 for resp_id = 1:4
     subplot(2,2,resp_id)
-    plot_ProbioticTrajectoryByResponse(resp_id,null.select_outcomes,null.warnall,null.tall,null.yall,time_id,null.dose_lbls,SSnms,sp_cols)
+    plot_ProbioticTrajectoryByResponse(resp_id,null.select_outcomes,...
+        null.warnall,null.tall,null.yall,time_id,null.dose_lbls,SSnms,sp_cols);
 end
 
 f1(1) = figure;
 selected_timepoints = [2 3 5:8]; % time points evaluated (0mo - 12mo post)
 subplot(2,4,[1 5])
-plot_ResponseFrequenciesByTimepoint(selected_timepoints,null.select_outcomes,null.warnall,SSnms,time_names,sp_cols)
+plot_ResponseFrequenciesByTimepoint(selected_timepoints,null.select_outcomes,...
+    null.warnall,SSnms,time_names,sp_cols);
 title(strrep(extractBetween(ws_names{1},'1_','.mat'),"_", " "))
+legend(SSnms,'location','southoutside','Orientation','horizontal')
 subplot(2,4,[2 6])
-plot_ResponseFrequenciesByTimepoint(selected_timepoints,trad.select_outcomes,trad.warnall,SSnms,time_names,sp_cols)
+plot_ResponseFrequenciesByTimepoint(selected_timepoints,trad.select_outcomes,...
+    trad.warnall,SSnms,time_names,sp_cols);
 title(strrep(extractBetween(ws_names{2},'1_','.mat'),"_", " "))
+legend(SSnms,'location','southoutside','Orientation','horizontal')
 idx = [3 4 7 8];
 for resp_id = 1:4
     subplot(2,4,idx(resp_id))
-    plot_ProbioticTrajectoryByResponse(resp_id,trad.select_outcomes,trad.warnall,trad.tall,trad.yall,time_id,trad.dose_lbls,SSnms,sp_cols)
+    plot_ProbioticTrajectoryByResponse(resp_id,trad.select_outcomes,...
+        trad.warnall,trad.tall,trad.yall,time_id,trad.dose_lbls,SSnms,sp_cols);
 end
+set(gcf,'units','inches','position', [0 0 18 5])
 
 f1a(2) = figure;
-plot_ResponseFrequenciesByTimepoint(selected_timepoints,ntrad.select_outcomes,ntrad.warnall,SSnms,time_names,sp_cols)
+plot_ResponseFrequenciesByTimepoint(selected_timepoints,...
+    ntrad.select_outcomes,ntrad.warnall,SSnms,time_names,sp_cols);
 title(strrep(extractBetween(ws_names{3},'1_','.mat'),"_", " "))
 
