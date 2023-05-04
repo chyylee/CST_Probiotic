@@ -175,9 +175,9 @@ set(gcf,'units','pixels','position',[1 1 900 300])
 X = strainFrequency24; % or strainFrequency12
 
 disp('Top Performing Strain - Percentatge of Subjects with nAB, Li, oLB, and P-dominance')
-disp(prctile(strainFrequency24(er_id,:)*100,100))
+disp(prctile(X(er_id,:)*100,100))
 
-sortThresh = prctile(strainFrequency24(er_id,:),90); % analyze 90th percentile strains
+sortThresh = prctile(X(er_id,:),90); % analyze 90th percentile strains
 
 [~,Response_Label] = max(X,[],2);
 Response_Label(isnan(X(:,1))) = -1;
