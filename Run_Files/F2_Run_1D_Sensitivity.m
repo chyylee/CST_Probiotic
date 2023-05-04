@@ -115,7 +115,7 @@ disp(stcat(num2str(tend/60),'min'))
 
 % PULL DATA FOR PLOTTING (load workspace if needed)
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-output_fdr = 'result_workspaces/';
+output_fdr = 'result_workspaces/F2/';
 load(strcat(output_fdr,'F2_1D_Sensitivity.mat'))
 time_id = 8; % time point to evaluate
 params_to_view = SIMinfo.alteredParamIndex;
@@ -125,6 +125,4 @@ figFlag = false; % true: plot parameters separately; false: subplot
 
 plot_1D_SensitivityAnalysis(all_select_outcomes,all_warnall,time_id,...
     params_to_view,param_alterkg,param_alteris,param_alterii,param_names,SSnms,sp_cols,figFlag)
-
-
 
