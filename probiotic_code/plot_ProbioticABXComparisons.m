@@ -59,7 +59,8 @@ function [Counts,all_PvaluesLB,all_PvaluesBV] = ...
         hold on
     
         Y = ones(length(testDesigns),1)*100;
-        superbar(Y,'P',P,'BarFaceColor', 'none', 'BarEdgeColor', 'none')
+        superbar(Y,'P',P,'BarFaceColor', 'none', 'BarEdgeColor', 'none',...
+            'PStarOffset',4,'PLineWidth',0.75)
         for i = 1:size(Y,1) % Label for percent nAB response post
             text(i,Freq(i,1),num2str(Freq(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
                 'fontname','Arial','Color','k')

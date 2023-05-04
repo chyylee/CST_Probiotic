@@ -63,20 +63,22 @@ output_fdr = 'result_workspaces/';
 
 % ~~~~~~~~~~~~~~~~~ ABX + ACUTE PROBIOTIC ~~~~~~~~~~~~~~~~~
 ABXinfo.addABX = true; % true = add antibiotic, false = skip
-ABXinfo.dose = -3.82; % decay rate
-ABXinfo.duration = 5; % days
+ABXinfo.dose = -2.64; % decay rate
+ABXinfo.duration = 7; % days
 
 PROBinfo.dose = 7.5; % relative unit
 PROBinfo.numberDoses = 7; % days
 PROBinfo.doseFrequency = 1; % every XX days
 PROBinfo.strainCharIndexes =  [4,8,12,16,17,18,19,20];
-PROBinfo.strainCharacteristics = [0.5 0 0 0 0 0 0 -0.022];
+PROBinfo.strainCharacteristics = [0.5 0 0 0 -0.01 0 0 -0.022];
 
 ABXNullDesign = {ABXinfo,PROBinfo,POPinfo};
 
 % ~~~~~~~~~~~~~~~~~ ABX + NO PROBIOTIC/PLACEBO ~~~~~~~~~~~~~~~~~
 % all other simulation info is the same, only need to change dose to zero
 PROBinfo.dose = 0; % relative unit 
+PROBinfo.numberDoses = 1;
+PROBinfo.doseFrequency = 1;
 
 ABXOnlyDesign = {ABXinfo,PROBinfo,POPinfo};
 
@@ -89,7 +91,7 @@ PROBinfo.dose = 7.5; % relative unit
 PROBinfo.numberDoses = 7; % days
 PROBinfo.doseFrequency = 1; % every XX days
 PROBinfo.strainCharIndexes =  [4,8,12,16,17,18,19, 20];
-PROBinfo.strainCharacteristics = [0.5 0 0 0 0 0 0 -0.022];
+PROBinfo.strainCharacteristics = [0.5 0 0 0 -0.01 0 0 -0.022];
 
 NullOnlyDesign = {ABXinfo,PROBinfo,POPinfo};
 
@@ -127,7 +129,7 @@ save(strcat(output_fdr,output_ws_nm), 'all_select_outcomes', 'all_warnall',...
 
 
 %% 4. VISUALIZE RESULTS
-output_fdr = 'result_workspaces/';
+output_fdr = 'result_workspaces/F3/';
 load(strcat(output_fdr,'F3_ABX_Probiotic_ShortTerm.mat'))
 
 timePoints = [2 5 6 7 8]; % timepoints to analyze
