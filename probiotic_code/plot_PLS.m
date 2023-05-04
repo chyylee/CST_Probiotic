@@ -61,15 +61,15 @@ function plot_PLS(LV1_scores, LV2_scores, ...
                 LV2{i} = 0*LV1{i};
             end
             if scores_num_LVs == 3
-                plot3(LV1{i},LV2{i},LV3{i},'o','MarkerFaceColor',colors(i,:),'MarkerEdgeColor','k','MarkerSize',8)
+                plot3(LV1{i},LV2{i},LV3{i},'o','MarkerFaceColor',colors(i,:),'MarkerEdgeColor','k','MarkerSize',8);
                 % Create the dashed lines along the axes
                 hold on
             else
-                p(i) = plot(LV1{i},LV2{i},'o','MarkerFaceColor',colors(i,:),'MarkerEdgeColor','k','MarkerSize',8)
+                p(i) = plot(LV1{i},LV2{i},'o','MarkerFaceColor',colors(i,:),'MarkerEdgeColor','k','MarkerSize',8);
                 hold on
     %             ellip(i) = subgroupcl([LV1{i},LV2{i}],0.9); % Adds confidence ellipses
     %             ellip_points(i,:,:) = ellip(i).Vertices;
-                plot(squeeze(ellip_points(i,:,1)),squeeze(ellip_points(i,:,2)),'-','Color',ellipcolor(i,:),'LineWidth',1)
+                plot(squeeze(ellip_points(i,:,1)),squeeze(ellip_points(i,:,2)),'-','Color',ellipcolor(i,:),'LineWidth',1);
             end
         end
         if scores_num_LVs == 3
