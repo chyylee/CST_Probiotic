@@ -1,6 +1,11 @@
 # CST_Probiotic
 Code to assess probiotic efficacy using generalized Lotka-Volterra models.
 
+<p align="left">
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/60102200/236353434-483b2bb9-78a5-40c6-9bfb-654e7dcc52b3.png">
+</p>
+
+
 View html files for run code: <br />
 [B1_Generate_Virtual_Population](http://htmlpreview.github.io/?https://github.com/chyylee/CST_Probiotic/blob/main/Run_Files/html_markdown_of_code/B1_Generate_Virtual_Population.html) <br />
 [F1_Run_Strain_Overview](http://htmlpreview.github.io/?https://github.com/chyylee/CST_Probiotic/blob/main/Run_Files/html_markdown_of_code/F1_Run_Strain_Overview.html) <br />
