@@ -24,7 +24,7 @@ output_fdr_nm = 'result_workspaces/';
 
 nullP = [0.5 0 0 0 0 0 0 -0.022];
 modP = [0.5 -0.006  -0.04 -0.04 -0.012 -0.04 -0.04 -0.022];
-badP = [0.5 -0.1  -0.04 -0.04 -0.01 -0.04 -0.04 -0.022];
+badP = [0.5 -0.012  -0.04 -0.04 -0.006 -0.04 -0.04 -0.022];
 tradP = [0.5 0 0 0 -0.012 0 0 -0.022];
 
 strainList = {nullP,tradP,modP,badP};
@@ -38,7 +38,7 @@ run_nms = {'Null','Traditional','Moderate','Bad'};
 %       - NOTE: POPinfo now has "SIMinfo" incorporated, rather than being
 %               assigned it's own structure
 
-
+ABXinfo.dose = -3.82;
 LactinV = {ABXinfo,PROBinfo,POPinfo};
 
 % ~~~~~~~~~~~~~~~~~ ABX + PLACEBO ~~~~~~~~~~~~~~~~~
@@ -77,23 +77,25 @@ for k = 1:length(strainList) % strain iteration
     end
     if isfolder(output_fdr_nm)
         save(strcat(output_fdr_nm,'F3_',run_name,'_LactinVPlacebo.mat'),'all_warnall','all_select_outcomes',...
-            'testDesignNames','TestDesigns','probiotic_params','x1SS')
+            'testDesignNames','TestDesigns','probiotic_params')
     else
         mkdir(output_fdr_nm)
         save(strcat(output_fdr_nm,run_name,'-LactinVPlacebo.mat'),'all_warnall','all_select_outcomes',...
-            'testDesignNames','TestDesigns','probiotic_params','x1SS')
+            'testDesignNames','TestDesigns','probiotic_params')
     end
 end
 
 tend = toc(t);
 disp(strcat(num2str(tend/60), " minutes"))
 %% 4. VISUALIZE RESULTS
-output_fdr_nm = 'result_workspaces/';
-ws_list = strcat(output_fdr_nm,'F3_',{'Traditional_LactinVPlacebo.mat',...
+output_fdr = 'result_workspaces/F3/LV_Trial_A382/';
+ws_list = strcat('F3_',{'Traditional_LactinVPlacebo.mat',...
     'Null_LactinVPlacebo.mat',...
     'Moderate_LactinVPlacebo.mat',...
     'Bad_LactinVPlacebo.mat'});
 
-plot_LactinVSimulationvsObserved(output_fdr_nm,ws_list)
+figure
+plot_LactinVSimulationvsObserved(output_fdr,ws_list)
+%%
 
 

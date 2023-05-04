@@ -33,7 +33,8 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
         X(2,1)/100*sum(Counts), sum(Counts) - X(2,1)/100*sum(Counts)];
     [pPLCBO12,~,~] = chigof(Y');
     superbar(X(:,1),'P',[NaN,pPLCBO12;pPLCBO12,NaN],'BarFaceColor', sp_cols(1,:),...
-        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1); % placebo 12 wk
+        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1,...
+        'PLineWidth',0.75,'PStarOffset',3); % placebo 12 wk
     for i = 1:n % Label for percent nAB response post
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
@@ -61,7 +62,8 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
         X(2,1)/100*sum(Counts), sum(Counts) - X(2,1)/100*sum(Counts)];
     [pPLCBO12,~,~] = chigof(Y');
     superbar(X(:,1),'P',[NaN,pPLCBO12;pPLCBO12,NaN],'BarFaceColor', sp_cols(1,:),...
-        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1); % placebo 12 wk
+        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1,...
+        'PLineWidth',0.75,'PStarOffset',3); % placebo 12 wk
     for i = 1:n % Label for percent nAB response post
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
@@ -114,7 +116,8 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
     P(1,2:end) = PvsC(1,:);
     P(2:end,1) = PvsC(1,:);
     superbar(X(:,1),'P',P,'BarFaceColor', sp_cols(1,:),...
-        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1); % placebo 12 wk
+        'BarEdgeColor', 'k','PStarFontSize',10,'BarLineWidth',1,...
+        'PLineWidth',0.75,'PStarOffset',3); % placebo 12 wk
     for i = 1:n % Label for percent nAB response post
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
@@ -133,7 +136,8 @@ function plot_LactinVSimulationvsObserved(fdr_nm,ws_list)
     P(1,2:end) = PvsC(2,:);
     P(2:end,1) = PvsC(2,:);
     superbar(X(:,1),'P',P,'BarFaceColor', sp_cols(1,:),...
-        'BarEdgeColor',  'k','PStarFontSize',10,'BarLineWidth',1); % placebo 12 wk
+        'BarEdgeColor',  'k','PStarFontSize',10,'BarLineWidth',1,...
+        'PLineWidth',0.75,'PStarOffset',3); % placebo 12 wk
     for i = 1:n % Label for percent nAB response post
         text(i,X(i,1),num2str(X(i,1),'%.1f%%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center')
     end
