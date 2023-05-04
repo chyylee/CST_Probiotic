@@ -4,17 +4,17 @@
 % perturbation
 %
 %   INCREASING EFFICACY
-%           nAB -> P, +0.012
-%           P -> nAB, -0.012
-%           nAB -> P, +0.012 & P -> nAB, -0.012
-%           nAB -> P, +0.012 & P -> nAB, -0.012 & kgrow-P = 0.8
-%      Rev: nAB -> P, -0.012 & P -> nAB, -0.012
+%           nAB -> P, +0.01
+%           P -> nAB, -0.01
+%           nAB -> P, +0.01 & P -> nAB, -0.01
+%           nAB -> P, +0.01 & P -> nAB, -0.01 & kgrow-P = 0.8
+%      Rev: nAB -> P, -0.01 & P -> nAB, -0.01
 %
 %
 %   BOOSTING oLB over Li/Probiotic
-%       P -> oLB, +0.012
-%       P -> oLB, +0.012 & P -> nAB, -0.012
-%       P -> oLB, +0.012 & P -> nAB, -0.012 & P -> Li, -0.012
+%       P -> oLB, +0.05
+%       P -> oLB, +0.05 & P -> nAB, -0.05
+%       P -> oLB, +0.05 & P -> nAB, -0.05 & P -> Li, -0.05
 %
 % REQUIRES: 
 %  - MATLAB workspace with:
@@ -74,7 +74,7 @@ simulationType = "base";
 pidx_list = {1,2, 5, [2 5], [1 2 5], [2 5], 7, [5 7],[5 6 7]}; % parameter indexes
 mag = 0.01; % magnitude
 kgr = 0.8; % final growth rate
-pert_list = {NaN,1,-1,[1 -1],[kgr/mag 1 -1],[-1 -1],1,[-1 1],[-1 -1 1]}; % directionality
+pert_list = {NaN,1,-1,[1 -1],[kgr/mag 1 -1],[-1 -1],5,[-5 5],[-5 -5 5]}; % directionality
 base_params = [0.5 0 0 0 0 0 0 -0.022]; % Null Probiotic
 output_ws_nm = 'F2_Select_Probiotic_Designs.mat';
 
@@ -99,15 +99,15 @@ for pert_id = 1:length(pidx_list)
 end
 
 %% 3. PLOT RESULTS
-output_fdr = 'result_workspaces/';
+output_fdr = 'result_workspaces/F2/';
 
-load(strcat(output_fdr,'F2_Select_Probiotic_Designs_Apr28.mat'))
+load(strcat(output_fdr,'F2_Select_Probiotic_Designs.mat'))
 time_id = 8; % timepoint (8 = 12mo)
 gr1 = [0 2 1 3 4 5]+1; % indexes for first plot
 gr2 = [0 6:8]+1; % indexes for second plot
 pert_names = {'null','1p: Best','1p: Traditional','2p: Best','3p: Best','2p: Counter','1p: oLB','2p: oLB','3p: oLB'};
     
-
+pert_list = {NaN,1,-1,[1 -1],[kgr/mag 1 -1],[-1 -1],1,[-1 1],[-1 -1 1]}; % directionality
 [allCounts,pChiDfAllResponses, pChiDfBvResponses] = plot_SelectProbioticDesigns(pidx_list,...
     pert_list,pert_names,gr1,gr2,all_select_outcomes,all_warnall,...
     time_id);

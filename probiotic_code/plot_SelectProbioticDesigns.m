@@ -42,8 +42,9 @@ function [allCounts,pChiDfAllResponses, pChiDfBvResponses] = plot_SelectProbioti
 
     % ~~~~~~~~~~~~ Plots Parameter Alterations  ~~~~~~~~~~~~ 
     subplot(4,2,7)
-    param_vals(param_vals > 1) = 1;
     param_vals(isnan(param_vals)) = 0;
+    param_vals(param_vals > 50) = 1;
+
     ax = imagesc(param_vals([1,2,5],gr1));
     colormap(gca,[0 0.75 0.75; ...
         1 1 1; ...
@@ -75,11 +76,13 @@ function [allCounts,pChiDfAllResponses, pChiDfBvResponses] = plot_SelectProbioti
     hold on
     Y = ones(length(gr1),1)*100;
     P = squeeze(pChiDfBvResponses(gr1,gr1,1));
-    superbar(Y, 'P',round(P,4),'BarFaceColor', 'none', 'BarEdgeColor', 'none')
+    superbar(Y, 'P',round(P,4),'BarFaceColor', 'none', 'BarEdgeColor', 'none',...
+        'PStarOffset',5,'PLineWidth',0.75)
     ylim([0 220])
     
+    Y = cumsum(X,2);
     for i = 1:size(X,1) % Label for percent nAB response post
-        text(i,X(i,1),num2str(X(i,1),'%.1f %%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
+        text(i,Y(i,1),num2str(X(i,1),'%.1f %%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
             'fontsize',10)
     end
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
@@ -95,13 +98,24 @@ function [allCounts,pChiDfAllResponses, pChiDfBvResponses] = plot_SelectProbioti
     ylabel('Percent Samples')
     hold on
     Y = ones(length(gr2),1)*100;
-    P = squeeze(pChiDfBvResponses(gr2,gr2,1));
-    superbar(Y, 'P',round(P,4),'BarFaceColor', 'none', 'BarEdgeColor', 'none')
+    P = squeeze(pChiDfAllResponses(gr2,gr2,1));
+    superbar(Y, 'P',round(P,4),'BarFaceColor', 'none', 'BarEdgeColor', 'none',...
+        'PStarOffset',5,'PLineWidth',0.75)
     ylim([0 220])
     
-    for i = 1:size(X,1) % Label for percent nAB response post
-        text(i,X(i,1),num2str(X(i,1),'%.1f %%'),'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
-            'fontsize',10)
+    Y = cumsum(X,2);
+    for j = 1:size(X,2)
+        for i = 1:size(X,1) % Label for percent nAB response post
+            if j == 4
+                text(i,Y(i,j),num2str(X(i,j),'%.1f %%'),...
+                    'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
+                    'fontsize',10,'Color','w')
+            else
+               text(i,Y(i,j),num2str(X(i,j),'%.1f %%'),...
+                   'VerticalAlignment','top', 'HorizontalAlignment', 'center',...
+                'fontsize',10,'Color','k')
+            end
+        end
     end
     set(gca,'XColor','k','YColor','k','LineWidth',1,'fontsize',10)
     title('Boosting oLB')
