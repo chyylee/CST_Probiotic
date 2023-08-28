@@ -54,8 +54,7 @@ rng(2);
 NumPats = 2000; % Total size of the simulated populatiion
 
 % ~~~~~~~~~~ HMP EB Frequencies ~~~~~~~~~~ (uncomment to run HMP)
-hmp101 = [0.75 0.1875 0.0625]; % assuming 75% mono, 25% multi
-% hmp101 = [0.60 0.31 0.09]; % actual HMP distribution
+hmp101 = [0.60 0.31 0.09]; % actual HMP distribution
 
 counts_per_EB = ceil(NumPats.*hmp101); % 1SS nAB, 1SS Li, 1SS oLB, 2SS Li or nAB, 2SS Li or oLB, 2SS oLB or nAB
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
